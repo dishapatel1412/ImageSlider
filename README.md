@@ -1,2 +1,2 @@
 # ImageSlider
-This is my first project on GitHub
+This is just a simple image slider.
