@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Slider</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="slider">
+            <div class="slide now">
+                <img src="images/image2.jpg">
+            </div>
+            <div class="slide">
+                <img src="images/image4.jpg">
+            </div>
+            <div class="slide">
+                <img src="images/image5.jpg">
+            </div>
+            <div class="slide">
+                <img src="images/image6.jpeg">
+            </div>
+            <div class="slide">
+                <img src="images/image1.jpg">
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="button">
+            <button id="prev"><span class="fas fa-arrow-left"></span></button>
+            <button id="next"><span class="fas fa-arrow-right"></span></button>
+        </div>
+    </div>
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const next = document.querySelector('#next');
+        const prev = document.querySelector('#prev');
+        const auto = false; // Auto scroll
+        const intervalTime = 5000;
+        let slideInterval;
+
+        const nextSlide = () => {
+            const current = document.querySelector('.now');
+            current.classList.remove('now');
+            if (current.nextElementSibling) {
+                current.nextElementSibling.classList.add('now');
+            } else {
+                slides[0].classList.add('now');
+            }
+            setTimeout(() => current.classList.remove('now'));
+        };
+
+        const prevSlide = () => {
+            const current = document.querySelector('.now');
+            current.classList.remove('now');
+            if (current.previousElementSibling) {
+                current.previousElementSibling.classList.add('now');
+            } else {
+                slides[slides.length - 1].classList.add('now');
+            }
+            setTimeout(() => current.classList.remove('now'));
+        };
+
+        next.addEventListener('click', e => {
+            nextSlide();
+            if (auto) {
+                clearInterval(slideInterval);
+                slideInterval = setInterval(nextSlide, intervalTime);
+            }
+        });
+
+        prev.addEventListener('click', e => {
+            prevSlide();
+            if (auto) {
+                clearInterval(slideInterval);
+                slideInterval = setInterval(nextSlide, intervalTime);
+            }
+        });
+
+        // Auto slide
+        if (auto) {
+            // Run next slide at interval time
+            slideInterval = setInterval(nextSlide, intervalTime);
+        }
+    </script>
+</body>
+</html>
